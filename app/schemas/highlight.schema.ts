@@ -5,7 +5,7 @@ export const highlightSchema = z.object({
   title: z.string(),
   cover_image_url: z.string().url(),
   created_at: z.string(),
-  updated_at: z.string(),
+  updated_at: z.string().optional(),
 });
 
 export const highlightsSchema = z.array(highlightSchema);

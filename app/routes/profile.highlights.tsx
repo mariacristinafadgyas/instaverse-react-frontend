@@ -1,4 +1,4 @@
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData } from 'react-router';
 import { api } from '~/services/api';
 import { highlightsSchema, type Highlight } from '~/schemas/highlight.schema';
 import { HighlightBubble } from '~/components/HighlightBubble';
