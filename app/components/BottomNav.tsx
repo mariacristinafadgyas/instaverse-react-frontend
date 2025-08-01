@@ -44,7 +44,10 @@ export function BottomNav() {
           <PlusSquare className={getIconClass('/create')} />
           <span className={labelClass}>Create</span>
         </Link>
-        <Link to="/reels" className={getLinkClass('/reels')}>
+        <Link
+          to="/profile/reels/grid"
+          className={getLinkClass('/profile/reels/grid')}
+        >
           <Clapperboard className={getIconClass('/reels')} />
           <span className={labelClass}>Reels</span>
         </Link>
