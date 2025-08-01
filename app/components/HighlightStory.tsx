@@ -1,4 +1,5 @@
 import type { Highlight } from '~/schemas/highlight.schema';
+import { Link } from 'react-router';
 
 export function HighlightStory({ highlight }: { highlight: Highlight }) {
   return (
@@ -12,6 +13,12 @@ export function HighlightStory({ highlight }: { highlight: Highlight }) {
       <p className="text-sm text-gray-300 mt-2">
         Created at: {new Date(highlight.created_at).toLocaleString()}
       </p>
+      <Link
+        to="/profile/highlights"
+        className="text-blue-500 underline mb-4 block"
+      >
+        ← Back to Highlights
+      </Link>
     </div>
   );
 }
