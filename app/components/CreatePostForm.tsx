@@ -45,57 +45,77 @@ export function CreatePostForm() {
     if (imageFile) formData.append('file', imageFile); // 'file' matches backend expected field name
 
     // Programmatically submit the form data using useNavigation's form ref
-    // (Alternatively, use a ref on the Form component if more complex logic is needed before submission)
     (event.target as HTMLFormElement).submit();
   };
 
   return (
-    <div className="max-w-md mx-auto p-4 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-4 text-center">Create New Post</h2>
+    // Main container with a modern, glass-like card design
+    <div className="mx-auto my-8 max-w-lg p-8 bg-white/70 dark:bg-gray-900/70 backdrop-blur-md rounded-3xl shadow-2xl border border-gray-100 dark:border-gray-800">
+      {/* Title with a bold font and a subtle gradient */}
+      <h2 className="text-3xl font-extrabold mb-8 text-center text-gray-900 dark:text-gray-100">
+        New Post
+      </h2>
       <Form
         method="post"
         encType="multipart/form-data"
         onSubmit={handleSubmit}
-        className="space-y-4"
+        className="space-y-6"
       >
+        {/* Image Upload section */}
         <div>
           <label
             htmlFor="image"
-            className="block text-sm font-medium text-gray-700 mb-1"
+            className="flex items-center justify-center p-4 bg-gray-100 dark:bg-gray-700 rounded-xl cursor-pointer
+              transition-all duration-300 hover:bg-gray-200 dark:hover:bg-gray-600"
           >
-            Upload Image
-          </label>
-          <input
-            type="file"
-            id="image"
-            name="image"
-            accept="image/*"
-            onChange={handleImageChange}
-            className="block w-full text-sm text-gray-500
-              file:mr-4 file:py-2 file:px-4
-              file:rounded-full file:border-0
-              file:text-sm file:font-semibold
-              file:bg-blue-50 file:text-blue-700
-              hover:file:bg-blue-100"
-          />
-          {previewUrl && (
-            <img
-              src={previewUrl}
-              alt="Image Preview"
-              className="mt-4 max-h-60 w-auto rounded-md shadow-sm mx-auto"
+            <span className="flex items-center space-x-2 text-gray-600 dark:text-gray-300">
+              {/* SVG icon for image upload */}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                />
+              </svg>
+              <span className="text-base font-semibold">Upload Image</span>
+            </span>
+            <input
+              type="file"
+              id="image"
+              name="image"
+              accept="image/*"
+              onChange={handleImageChange}
+              className="sr-only" // Visually hide the input, but keep it accessible
             />
+          </label>
+          {previewUrl && (
+            <div className="mt-6 flex justify-center">
+              <img
+                src={previewUrl}
+                alt="Image Preview"
+                className="max-h-80 w-auto rounded-lg shadow-md border border-gray-200 dark:border-gray-700 object-cover"
+              />
+            </div>
           )}
           {errors.find((e) => e.path[0] === 'image') && (
-            <p className="mt-2 text-sm text-red-600">
+            <p className="mt-2 text-xs text-rose-500 dark:text-rose-400 font-medium">
               {errors.find((e) => e.path[0] === 'image')?.message}
             </p>
           )}
         </div>
 
+        {/* Caption input section */}
         <div>
           <label
             htmlFor="caption"
-            className="block text-sm font-medium text-gray-700 mb-1"
+            className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2"
           >
             Caption
           </label>
@@ -105,22 +125,57 @@ export function CreatePostForm() {
             rows={3}
             value={caption}
             onChange={(e) => setCaption(e.target.value)}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+            // Styled textarea for a clean look with focus states
+            className="mt-1 block w-full rounded-lg border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 shadow-sm
+              focus:ring-2 focus:ring-purple-500 focus:border-purple-500 sm:text-sm p-3 placeholder-gray-400"
             placeholder="Write a caption..."
           ></textarea>
           {errors.find((e) => e.path[0] === 'caption') && (
-            <p className="mt-2 text-sm text-red-600">
+            <p className="mt-2 text-xs text-rose-500 dark:text-rose-400 font-medium">
               {errors.find((e) => e.path[0] === 'caption')?.message}
             </p>
           )}
         </div>
 
+        {/* Submit button with modern styling and loading spinner */}
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full py-3 px-4 rounded-xl shadow-md
+            bg-gradient-to-r from-blue-500 to-purple-600 text-white
+            font-bold text-lg
+            hover:from-blue-600 hover:to-purple-700 transition-all duration-300 ease-in-out
+            focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500
+            disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
         >
-          {isSubmitting ? 'Creating...' : 'Create Post'}
+          {isSubmitting ? (
+            <>
+              {/* Simple SVG loading spinner */}
+              <svg
+                className="animate-spin h-5 w-5 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
+              </svg>
+              <span>Creating...</span>
+            </>
+          ) : (
+            <span>Create Post</span>
+          )}
         </button>
       </Form>
     </div>
