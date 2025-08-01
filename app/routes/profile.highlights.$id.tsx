@@ -29,7 +29,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
 }
 
 export default function HighlightDetail() {
-  const highlight = useLoaderData();
+  const highlight = useLoaderData() as Highlight;
   // Add a typeguard to help typescript understand what the higlhight is if needed
   console.log('Current URL:', window.location.href);
   return highlight ? (
