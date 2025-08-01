@@ -20,7 +20,7 @@ export function BottomNav() {
           ➕
         </Link>
         <Link
-          to="/"
+          to="/profile/reels/grid"
           className="inline-flex flex-col items-center justify-center px-5"
         >
           Reels
