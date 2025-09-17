@@ -3,7 +3,11 @@ import { z } from 'zod';
 // Zod schema for a single post object
 export const postSchema = z.object({
   id: z.number(),
-  img_url: z.string().url(),
+  img_url: z
+    .string()
+    .refine((val) => val.startsWith('/') || val.startsWith('http'), {
+      message: 'Invalid image URL',
+    }),
   caption: z.string().nullable(),
   created_at: z.string(),
 });
